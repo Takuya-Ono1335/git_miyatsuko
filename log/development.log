@@ -1,0 +1,398 @@
+DEPRECATION WARNING: Leaving `ActiveRecord::ConnectionAdapters::SQLite3Adapter.represent_boolean_as_integer`
+set to false is deprecated. SQLite databases have used 't' and 'f' to serialize
+boolean values and must have old data converted to 1 and 0 (its native boolean
+serialization) before setting this flag to true. Conversion can be accomplished
+by setting up a rake task which runs
+
+  ExampleModel.where("boolean_column = 't'").update_all(boolean_column: 1)
+  ExampleModel.where("boolean_column = 'f'").update_all(boolean_column: 0)
+
+for all models and all boolean columns, after which the flag must be set to
+true by adding the following to your application.rb file:
+
+  Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+ (called from load at C:/Ruby24-x64/bin/rake:23)
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (14.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to UpdateSchema1 (20190217072144)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "emploees" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "emp_id" varchar, "name" varchar, "age" integer, "address" varchar, "busho" varchar, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190217072144"]]
+  [1m[35m (4.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to UpdateSchema2 (20190324014735)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "employees" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "emp_id" varchar, "name" varchar, "age" integer, "address" varchar, "busho" varchar, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE "emploees"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190324014735"]]
+  [1m[35m (3.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to UpdateSchema3 (20190326135226)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "employees" ADD "section_id" integer[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aemployees" ("id" integer NOT NULL PRIMARY KEY, "emp_id" varchar DEFAULT NULL, "name" varchar DEFAULT NULL, "age" integer DEFAULT NULL, "address" varchar DEFAULT NULL, "busho" varchar DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL, "section_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aemployees" ("id","emp_id","name","age","address","busho","created_at","updated_at","section_id")
+                     SELECT "id","emp_id","name","age","address","busho","created_at","updated_at","section_id" FROM "employees"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "employees"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "employees" ("id" integer NOT NULL PRIMARY KEY, "emp_id" varchar DEFAULT NULL, "name" varchar DEFAULT NULL, "age" integer DEFAULT NULL, "address" varchar DEFAULT NULL, "created_at" datetime DEFAULT NULL, "updated_at" datetime DEFAULT NULL, "section_id" integer DEFAULT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "employees" ("id","emp_id","name","age","address","created_at","updated_at","section_id")
+                     SELECT "id","emp_id","name","age","address","created_at","updated_at","section_id" FROM "aemployees"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "aemployees"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "sections" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "sec_name" varchar, "created_at" datetime, "updated_at" datetime)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190326135226"]]
+  [1m[35m (4.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-04-01 14:23:29.537033"], ["updated_at", "2019-04-01 14:23:29.537033"]]
+  [1m[35m (4.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+DEPRECATION WARNING: Leaving `ActiveRecord::ConnectionAdapters::SQLite3Adapter.represent_boolean_as_integer`
+set to false is deprecated. SQLite databases have used 't' and 'f' to serialize
+boolean values and must have old data converted to 1 and 0 (its native boolean
+serialization) before setting this flag to true. Conversion can be accomplished
+by setting up a rake task which runs
+
+  ExampleModel.where("boolean_column = 't'").update_all(boolean_column: 1)
+  ExampleModel.where("boolean_column = 'f'").update_all(boolean_column: 0)
+
+for all models and all boolean columns, after which the flag must be set to
+true by adding the following to your application.rb file:
+
+  Rails.application.config.active_record.sqlite3.represent_boolean_as_integer = true
+ (called from instance_eval at C:/Ruby24-x64/lib/ruby/gems/2.4.0/gems/activesupport-5.2.2.1/lib/active_support/lazy_load_hooks.rb:71)
+Started GET "/" for ::1 at 2019-04-01 23:24:19 +0900
+Processing by RoutesController#index as HTML
+  Rendering routes/index.html.erb within layouts/application
+  Rendered routes/index.html.erb within layouts/application (4.4ms)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename C:/rails/miyatsuko_test1/app/assets/stylesheets/_variables.css.scss to C:/rails/miyatsuko_test1/app/assets/stylesheets/_variables.scss. (called from _app_views_layouts_application_html_erb__557313491_43002980 at C:/rails/miyatsuko_test1/app/views/layouts/application.html.erb:5)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename C:/rails/miyatsuko_test1/app/assets/stylesheets/_bootstrap_overrides.css.scss to C:/rails/miyatsuko_test1/app/assets/stylesheets/_bootstrap_overrides.scss. (called from _app_views_layouts_application_html_erb__557313491_43002980 at C:/rails/miyatsuko_test1/app/views/layouts/application.html.erb:5)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename C:/rails/miyatsuko_test1/app/assets/stylesheets/_variables.css.scss to C:/rails/miyatsuko_test1/app/assets/stylesheets/_variables.scss. (called from _app_views_layouts_application_html_erb__557313491_43002980 at C:/rails/miyatsuko_test1/app/views/layouts/application.html.erb:5)
+DEPRECATION WARNING: Extra .css in SCSS file is unnecessary. Rename C:/rails/miyatsuko_test1/app/assets/stylesheets/_bootstrap_overrides.css.scss to C:/rails/miyatsuko_test1/app/assets/stylesheets/_bootstrap_overrides.scss. (called from _app_views_layouts_application_html_erb__557313491_43002980 at C:/rails/miyatsuko_test1/app/views/layouts/application.html.erb:5)
+Completed 200 OK in 7162ms (Views: 7120.8ms)
+
+
+Started GET "/assets/application.self-0c15bf7a784925b819e53e5366bf3465e9846625948b958c8ca3cf302c61e813.css?body=1" for ::1 at 2019-04-01 23:24:27 +0900
+Started GET "/sections" for ::1 at 2019-04-01 23:24:42 +0900
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (9.7ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (34.5ms)
+Completed 200 OK in 1110ms (Views: 833.1ms | ActiveRecord: 11.5ms)
+
+
+Started GET "/sections/new" for ::1 at 2019-04-01 23:24:56 +0900
+Processing by SectionsController#new as HTML
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (33.0ms)
+Completed 200 OK in 828ms (Views: 786.6ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/sections" for ::1 at 2019-04-01 23:25:28 +0900
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"zzu2MwGNtm7QgEo1IbLLsS3dMhju0Xdj7TNQLU1MM05MTflD88ezbcnkg1YqcUecdo4vFN6cH8+6mYTDVX9cZw==", "section"=>{"sec_name"=>"開発部"}, "commit"=>"保存"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSection Create (4.0ms)[0m  [1m[32mINSERT INTO "sections" ("sec_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["sec_name", "開発部"], ["created_at", "2019-04-01 14:25:28.236924"], ["updated_at", "2019-04-01 14:25:28.236924"]]
+  [1m[35m (5.3ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/sections/1
+Completed 302 Found in 25ms (ActiveRecord: 9.4ms)
+
+
+Started GET "/sections/1" for ::1 at 2019-04-01 23:25:28 +0900
+Processing by SectionsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering sections/show.html.erb within layouts/application
+  Rendered sections/show.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 867ms (Views: 797.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/sections" for ::1 at 2019-04-01 23:25:37 +0900
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.3ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 794ms (Views: 762.6ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/sections/new" for ::1 at 2019-04-01 23:25:43 +0900
+Processing by SectionsController#new as HTML
+  Rendering sections/new.html.erb within layouts/application
+  Rendered sections/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 780ms (Views: 747.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/sections" for ::1 at 2019-04-01 23:25:54 +0900
+Processing by SectionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"p8m5CVYWb0EgdhZp0MVpN6or4bTwvhvPcra+/FssM38kv/Z5pFxqQjkS3wrbBuUa8Xj8uMDzc2MlHGoSQx9cVg==", "section"=>{"sec_name"=>"営業部"}, "commit"=>"保存"}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSection Create (2.9ms)[0m  [1m[32mINSERT INTO "sections" ("sec_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["sec_name", "営業部"], ["created_at", "2019-04-01 14:25:54.970354"], ["updated_at", "2019-04-01 14:25:54.970354"]]
+  [1m[35m (5.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/sections/2
+Completed 302 Found in 26ms (ActiveRecord: 8.7ms)
+
+
+Started GET "/sections/2" for ::1 at 2019-04-01 23:25:55 +0900
+Processing by SectionsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSection Load (0.3ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/show.html.erb within layouts/application
+  Rendered sections/show.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 804ms (Views: 777.5ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/sections/2/edit" for ::1 at 2019-04-01 23:26:04 +0900
+Processing by SectionsController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSection Load (0.5ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/edit.html.erb within layouts/application
+  Rendered sections/edit.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 834ms (Views: 785.1ms | ActiveRecord: 0.5ms)
+
+
+Started PATCH "/sections/2" for ::1 at 2019-04-01 23:26:25 +0900
+Processing by SectionsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"AOIJyQoFqHO6uJOyjvaemElZQoK9z0H9WadYfkp+z8mDlEa5+E+tcKPcWtGFNRK1Egpfjo2CKVEODYyQUk2g4A==", "section"=>{"sec_name"=>"営業部"}, "commit"=>"保存", "id"=>"2"}
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/sections/2
+Completed 302 Found in 14ms (ActiveRecord: 0.6ms)
+
+
+Started GET "/sections/2" for ::1 at 2019-04-01 23:26:26 +0900
+Processing by SectionsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mSection Load (0.5ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering sections/show.html.erb within layouts/application
+  Rendered sections/show.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 808ms (Views: 770.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/sections" for ::1 at 2019-04-01 23:26:29 +0900
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 817ms (Views: 785.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-01 23:26:52 +0900
+Processing by RoutesController#index as HTML
+  Rendering routes/index.html.erb within layouts/application
+  Rendered routes/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 789ms (Views: 757.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/employees" for ::1 at 2019-04-01 23:27:04 +0900
+Processing by EmployeesController#index as HTML
+  Rendering employees/index.html.erb within layouts/application
+  [1m[36mEmployee Load (0.3ms)[0m  [1m[34mSELECT "employees".* FROM "employees"[0m
+  Rendered employees/index.html.erb within layouts/application (6.3ms)
+Completed 200 OK in 896ms (Views: 819.9ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/employees/new" for ::1 at 2019-04-01 23:27:33 +0900
+Processing by EmployeesController#new as HTML
+  Rendering employees/new.html.erb within layouts/application
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "sections"."sec_name", "sections"."id" FROM "sections"[0m
+  Rendered employees/new.html.erb within layouts/application (26.7ms)
+Completed 200 OK in 864ms (Views: 807.4ms | ActiveRecord: 2.3ms)
+
+
+Started POST "/employees" for ::1 at 2019-04-01 23:28:40 +0900
+Processing by EmployeesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"KEAyYl0rcYuvPPZtVD8RsrAe3miQP0tIceoWWv+bx0SrNn0Sr2F0iLZYPw5f/J2f603DZKByI+QmQMK056iobQ==", "employee"=>{"emp_id"=>"10001", "name"=>"田中　ルビー", "age"=>"39", "address"=>"江東区大島1-33-15", "section_id"=>"1"}, "commit"=>"保存"}
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEmployee Create (8.9ms)[0m  [1m[32mINSERT INTO "employees" ("emp_id", "name", "age", "address", "created_at", "updated_at", "section_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["emp_id", "10001"], ["name", "田中　ルビー"], ["age", 39], ["address", "江東区大島1-33-15"], ["created_at", "2019-04-01 14:28:40.168076"], ["updated_at", "2019-04-01 14:28:40.168076"], ["section_id", 1]]
+  [1m[35m (5.4ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/employees/1
+Completed 302 Found in 32ms (ActiveRecord: 14.5ms)
+
+
+Started GET "/employees/1" for ::1 at 2019-04-01 23:28:40 +0900
+Processing by EmployeesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mEmployee Load (0.6ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering employees/show.html.erb within layouts/application
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered employees/show.html.erb within layouts/application (78.4ms)
+Completed 200 OK in 915ms (Views: 865.7ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/employees/1/edit" for ::1 at 2019-04-01 23:29:38 +0900
+Processing by EmployeesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mEmployee Load (0.5ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering employees/edit.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "sections"."sec_name", "sections"."id" FROM "sections"[0m
+  Rendered employees/edit.html.erb within layouts/application (7.3ms)
+Completed 200 OK in 846ms (Views: 799.4ms | ActiveRecord: 1.0ms)
+
+
+Started PATCH "/employees/1" for ::1 at 2019-04-01 23:29:42 +0900
+Processing by EmployeesController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"SNvPW8OcI+LIFEoqnLHrvjnyje4DsfcRQiBlcmSvDmPLrYArMdYm4dFwg0mXcmeTYqGQ4jP8n70VirGcfJxhSg==", "employee"=>{"emp_id"=>"10001", "name"=>"田中　ルビー", "age"=>"39", "address"=>"江東区大島1-33-15", "section_id"=>"1"}, "commit"=>"保存", "id"=>"1"}
+  [1m[36mEmployee Load (0.3ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/employees/1
+Completed 302 Found in 9ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/employees/1" for ::1 at 2019-04-01 23:29:42 +0900
+Processing by EmployeesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mEmployee Load (0.4ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering employees/show.html.erb within layouts/application
+  [1m[36mSection Load (0.5ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered employees/show.html.erb within layouts/application (7.7ms)
+Completed 200 OK in 874ms (Views: 835.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/employees" for ::1 at 2019-04-01 23:29:45 +0900
+Processing by EmployeesController#index as HTML
+  Rendering employees/index.html.erb within layouts/application
+  [1m[36mEmployee Load (0.7ms)[0m  [1m[34mSELECT "employees".* FROM "employees"[0m
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered employees/index.html.erb within layouts/application (12.8ms)
+Completed 200 OK in 848ms (Views: 814.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/employees/new" for ::1 at 2019-04-01 23:29:49 +0900
+Processing by EmployeesController#new as HTML
+  Rendering employees/new.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "sections"."sec_name", "sections"."id" FROM "sections"[0m
+  Rendered employees/new.html.erb within layouts/application (6.9ms)
+Completed 200 OK in 832ms (Views: 800.0ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/employees" for ::1 at 2019-04-01 23:30:34 +0900
+Processing by EmployeesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"GkREhHliDNV9uRWp+yYyGWOmdCsjs17MNApE7bKZDnWZMgv0iygJ1mTd3Mrw5b40OPVpJxP+NmBjoJADqqphXA==", "employee"=>{"emp_id"=>"10002", "name"=>"明日　幾多郎", "age"=>"48", "address"=>"江東区大島1-33-15", "section_id"=>"1"}, "commit"=>"保存"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEmployee Create (8.6ms)[0m  [1m[32mINSERT INTO "employees" ("emp_id", "name", "age", "address", "created_at", "updated_at", "section_id") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["emp_id", "10002"], ["name", "明日　幾多郎"], ["age", 48], ["address", "江東区大島1-33-15"], ["created_at", "2019-04-01 14:30:34.720869"], ["updated_at", "2019-04-01 14:30:34.720869"], ["section_id", 1]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/employees/2
+Completed 302 Found in 33ms (ActiveRecord: 18.4ms)
+
+
+Started GET "/employees/2" for ::1 at 2019-04-01 23:30:34 +0900
+Processing by EmployeesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mEmployee Load (0.5ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering employees/show.html.erb within layouts/application
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered employees/show.html.erb within layouts/application (7.1ms)
+Completed 200 OK in 857ms (Views: 817.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/employees/2/edit" for ::1 at 2019-04-01 23:30:43 +0900
+Processing by EmployeesController#edit as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mEmployee Load (0.4ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering employees/edit.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "sections"."sec_name", "sections"."id" FROM "sections"[0m
+  Rendered employees/edit.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 872ms (Views: 837.1ms | ActiveRecord: 0.9ms)
+
+
+Started PATCH "/employees/2" for ::1 at 2019-04-01 23:30:59 +0900
+Processing by EmployeesController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HnZdfwKJ3p3wtU+PsIHcmvLanyg98sTDywkk43O9gJ6dABIP8MPbnunRhuy7QlC3qYmCJA2/rG+co/ANa47vtw==", "employee"=>{"emp_id"=>"10002", "name"=>"明日　幾多郎", "age"=>"48", "address"=>"江東区大島1-33-18", "section_id"=>"2"}, "commit"=>"保存", "id"=>"2"}
+  [1m[36mEmployee Load (0.4ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEmployee Update (8.6ms)[0m  [1m[33mUPDATE "employees" SET "address" = ?, "section_id" = ?, "updated_at" = ? WHERE "employees"."id" = ?[0m  [["address", "江東区大島1-33-18"], ["section_id", 2], ["updated_at", "2019-04-01 14:30:59.783715"], ["id", 2]]
+  [1m[35m (4.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/employees/2
+Completed 302 Found in 36ms (ActiveRecord: 13.8ms)
+
+
+Started GET "/employees/2" for ::1 at 2019-04-01 23:30:59 +0900
+Processing by EmployeesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mEmployee Load (0.4ms)[0m  [1m[34mSELECT  "employees".* FROM "employees" WHERE "employees"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering employees/show.html.erb within layouts/application
+  [1m[36mSection Load (0.3ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered employees/show.html.erb within layouts/application (8.2ms)
+Completed 200 OK in 944ms (Views: 905.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/employees" for ::1 at 2019-04-01 23:31:05 +0900
+Processing by EmployeesController#index as HTML
+  Rendering employees/index.html.erb within layouts/application
+  [1m[36mEmployee Load (0.5ms)[0m  [1m[34mSELECT "employees".* FROM "employees"[0m
+  [1m[36mSection Load (0.3ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered employees/index.html.erb within layouts/application (16.1ms)
+Completed 200 OK in 883ms (Views: 825.5ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/" for ::1 at 2019-04-01 23:31:28 +0900
+Processing by RoutesController#index as HTML
+  Rendering routes/index.html.erb within layouts/application
+  Rendered routes/index.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 795ms (Views: 763.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/sections" for ::1 at 2019-04-01 23:31:31 +0900
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.5ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 793ms (Views: 761.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/sections/1/edit" for ::1 at 2019-04-01 23:31:35 +0900
+Processing by SectionsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSection Load (0.3ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering sections/edit.html.erb within layouts/application
+  Rendered sections/edit.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 780ms (Views: 744.2ms | ActiveRecord: 0.3ms)
+
+
+Started PATCH "/sections/1" for ::1 at 2019-04-01 23:31:48 +0900
+Processing by SectionsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"PVoeZWuUFlzALFxtetCds/RfzD9Gc3aZa0xzHPrTwpW+LFEVmd4TX9lIlQ5xExGerwzRM3Y+HjU85qfy4uCtvA==", "section"=>{"sec_name"=>"システム部"}, "commit"=>"保存", "id"=>"1"}
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSection Update (9.3ms)[0m  [1m[33mUPDATE "sections" SET "sec_name" = ?, "updated_at" = ? WHERE "sections"."id" = ?[0m  [["sec_name", "システム部"], ["updated_at", "2019-04-01 14:31:49.007892"], ["id", 1]]
+  [1m[35m (5.0ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/sections/1
+Completed 302 Found in 30ms (ActiveRecord: 14.9ms)
+
+
+Started GET "/sections/1" for ::1 at 2019-04-01 23:31:49 +0900
+Processing by SectionsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering sections/show.html.erb within layouts/application
+  Rendered sections/show.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 819ms (Views: 780.7ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/sections" for ::1 at 2019-04-01 23:31:51 +0900
+Processing by SectionsController#index as HTML
+  Rendering sections/index.html.erb within layouts/application
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT "sections".* FROM "sections"[0m
+  Rendered sections/index.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 806ms (Views: 774.0ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2019-04-01 23:32:07 +0900
+Processing by RoutesController#index as HTML
+  Rendering routes/index.html.erb within layouts/application
+  Rendered routes/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 771ms (Views: 740.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/employees" for ::1 at 2019-04-01 23:32:10 +0900
+Processing by EmployeesController#index as HTML
+  Rendering employees/index.html.erb within layouts/application
+  [1m[36mEmployee Load (0.4ms)[0m  [1m[34mSELECT "employees".* FROM "employees"[0m
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSection Load (0.4ms)[0m  [1m[34mSELECT  "sections".* FROM "sections" WHERE "sections"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendered employees/index.html.erb within layouts/application (15.7ms)
+Completed 200 OK in 795ms (Views: 760.9ms | ActiveRecord: 1.2ms)
+
+
